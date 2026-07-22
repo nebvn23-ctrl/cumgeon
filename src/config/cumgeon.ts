@@ -50,7 +50,7 @@ export const cumgeonConfig = {
   identity: {
     name: "CUMGEON",
     subtitle: "THE LAST BULL OF THE TRENCHES",
-    tagline: "Bull body. Pigeon genetics. Trench mentality.",
+    tagline: " Pigeon genetics. Trench mentality.",
     shortDescription:
       "Bull body. Pigeon genetics. Trench mentality. Meet Cumgeon—the meme that didn't enter the meta. It infected it.",
     manifestoLine: "THE META WAS NOT FOLLOWED. IT WAS INFECTED.",
@@ -156,7 +156,7 @@ export const cumgeonConfig = {
   hero: {
     headline: "CUMGEON",
     subtitle: "THE LAST BULL OF THE TRENCHES",
-    supportingLines: ["Bull body.", "Pigeon genetics.", "Trench mentality."],
+    supportingLines: ["Pigeon genetics.", "Trench mentality."],
     scrollHint: "SCROLL TO DESCEND",
     buttons: {
       buy: "BUY CUMGEON",
