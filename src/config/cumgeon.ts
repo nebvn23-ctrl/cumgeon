@@ -50,7 +50,7 @@ export const cumgeonConfig = {
   identity: {
     name: "CUMGEON",
     subtitle: "THE LAST BULL OF THE TRENCHES",
-    tagline: " Pigeon genetics. Trench mentality.",
+    tagline: "Bull body. Pigeon genetics. Trench mentality.",
     shortDescription:
       "Bull body. Pigeon genetics. Trench mentality. Meet Cumgeon—the meme that didn't enter the meta. It infected it.",
     manifestoLine: "THE META WAS NOT FOLLOWED. IT WAS INFECTED.",
@@ -399,8 +399,8 @@ export const cumgeonConfig = {
   // ------------------------------------------------------------------------
   links: {
     buy: "[BUY_LINK]",
-    contractAddress: "[CONTRACT_ADDRESS]",
-    x: "[X_LINK]",
+    contractAddress: "HaVA37HXw3NsfueckK7iwZk7W4UT3RPveezVdp5Tpump",
+    x: "https://x.com/CUMGEON_SOL",
     telegram: "[TELEGRAM_LINK]",
     dexscreener: "[DEXSCREENER_LINK]",
   },
@@ -442,7 +442,7 @@ export const cumgeonConfig = {
     enableSoundToggle: true,
     // Contract address UI only renders once this is flipped to true AND
     // links.contractAddress no longer contains the literal placeholder text.
-    showContractAddress: false,
+    showContractAddress: true,
   },
 
   // ------------------------------------------------------------------------

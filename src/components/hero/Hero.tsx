@@ -16,7 +16,21 @@ export default function Hero() {
   const reducedMotion = useReducedMotion();
   const [entered, setEntered] = useState(false);
   const [linkNotice, setLinkNotice] = useState(false);
+  const [caCopied, setCaCopied] = useState(false);
   const buyConfigured = isConfiguredLink(cumgeonConfig.links.buy);
+  const xConfigured = isConfiguredLink(cumgeonConfig.links.x);
+  const caConfigured =
+    cumgeonConfig.featureFlags.showContractAddress && isConfiguredLink(cumgeonConfig.links.contractAddress);
+
+  const copyCA = async () => {
+    try {
+      await navigator.clipboard.writeText(cumgeonConfig.links.contractAddress);
+      setCaCopied(true);
+      setTimeout(() => setCaCopied(false), 1600);
+    } catch {
+      /* clipboard unavailable */
+    }
+  };
 
   useEffect(() => {
     if (introDone || reducedMotion) {
@@ -186,7 +200,49 @@ export default function Hero() {
           >
             {cumgeonConfig.hero.buttons.archive}
           </a>
+
+          <a
+            href={xConfigured ? cumgeonConfig.links.x : "#"}
+            target={xConfigured ? "_blank" : undefined}
+            rel={xConfigured ? "noopener noreferrer" : undefined}
+            data-cursor="ENTER"
+            onClick={(e) => !xConfigured && e.preventDefault()}
+            aria-label="Follow CUMGEON on X"
+            className="flex items-center gap-2 rounded-sm border border-white/25 px-5 py-3 font-mono text-sm uppercase tracking-wide2 text-dirty transition-colors hover:border-lime hover:text-lime"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+              <path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.2 22H1l8.1-9.3L0.9 2H8.2l5 6.4L18.9 2Zm-1.2 18h1.9L6.4 4H4.4l13.3 16Z" />
+            </svg>
+            X
+          </a>
         </motion.div>
+
+        {caConfigured && (
+          <motion.button
+            type="button"
+            onClick={copyCA}
+            data-cursor="ENTER"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.7, duration: 0.6 }}
+            className="group relative z-20 mt-8 w-full max-w-2xl rounded-md border border-lime/40 bg-black/50 px-6 py-4 backdrop-blur-sm transition-colors hover:border-lime"
+            style={{ boxShadow: "0 0 0 rgba(202,255,0,0)" }}
+          >
+            <motion.div
+              aria-hidden="true"
+              animate={reducedMotion ? {} : { opacity: [0.25, 0.6, 0.25], scale: [1, 1.015, 1] }}
+              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+              className="pointer-events-none absolute inset-0 rounded-md"
+              style={{ boxShadow: "0 0 30px 4px rgba(202,255,0,0.35)" }}
+            />
+            <p className="relative font-mono text-[10px] uppercase tracking-wide2 text-lime/70">
+              Contract Address {caCopied ? "— Copied ✓" : "— Tap to copy"}
+            </p>
+            <p className="relative mt-1 break-all font-mono text-sm font-bold text-dirty sm:text-lg">
+              {cumgeonConfig.links.contractAddress}
+            </p>
+          </motion.button>
+        )}
       </div>
 
       <motion.div

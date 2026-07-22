@@ -13,10 +13,19 @@ export default function LoreChapter({
   chapter,
   visual,
   align = "left",
+  hideChrome = false,
 }: {
   chapter: LoreChapterData;
   visual: React.ReactNode;
   align?: "left" | "right";
+  /**
+   * When true, skips rendering the standard title/paragraph block. Used for
+   * chapters whose scene already delivers the copy as a dramatic visual
+   * (e.g. the Chapter 03 manifesto slam), so the two don't render on top of
+   * each other. The title is kept for screen readers via a visually-hidden
+   * heading.
+   */
+  hideChrome?: boolean;
 }) {
   return (
     <section
@@ -35,50 +44,56 @@ export default function LoreChapter({
         </div>
       )}
 
-      <div
-        className={`relative z-20 mx-auto flex w-full max-w-6xl px-6 sm:px-10 ${
-          align === "right" ? "justify-end text-right" : "justify-start text-left"
-        }`}
-      >
-        <div className="max-w-xl">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.7 }}
-            className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-wide2 text-lime/70"
-          >
-            <span className="h-px w-8 bg-lime/50" />
-            CHAPTER {chapter.index}
-          </motion.div>
+      {hideChrome ? (
+        <h2 id={`${chapter.id}-title`} className="sr-only">
+          {chapter.title}
+        </h2>
+      ) : (
+        <div
+          className={`relative z-20 mx-auto flex w-full max-w-6xl px-6 sm:px-10 ${
+            align === "right" ? "justify-end text-right" : "justify-start text-left"
+          }`}
+        >
+          <div className="max-w-xl">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.7 }}
+              className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-wide2 text-lime/70"
+            >
+              <span className="h-px w-8 bg-lime/50" />
+              CHAPTER {chapter.index}
+            </motion.div>
 
-          <motion.h2
-            id={`${chapter.id}-title`}
-            initial={{ opacity: 0, y: 34 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-4xl uppercase leading-[0.95] tracking-tightest2 text-dirty sm:text-6xl"
-          >
-            {chapter.title}
-          </motion.h2>
+            <motion.h2
+              id={`${chapter.id}-title`}
+              initial={{ opacity: 0, y: 34 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-4xl uppercase leading-[0.95] tracking-tightest2 text-dirty sm:text-6xl"
+            >
+              {chapter.title}
+            </motion.h2>
 
-          <div className="mt-6 space-y-4">
-            {chapter.paragraphs.map((p, i) => (
-              <motion.p
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.6, delay: 0.1 + i * 0.08 }}
-                className="whitespace-pre-line font-body text-base text-dirty/80 sm:text-lg"
-              >
-                {p}
-              </motion.p>
-            ))}
+            <div className="mt-6 space-y-4">
+              {chapter.paragraphs.map((p, i) => (
+                <motion.p
+                  key={i}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.6, delay: 0.1 + i * 0.08 }}
+                  className="whitespace-pre-line font-body text-base text-dirty/80 sm:text-lg"
+                >
+                  {p}
+                </motion.p>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

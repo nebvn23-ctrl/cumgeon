@@ -7,13 +7,21 @@ import { cumgeonConfig } from "@/config/cumgeon";
 import CharacterActor from "@/components/character/CharacterActor";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-export default function GreenFieldsScene({ manifesto = false }: { manifesto?: boolean }) {
+export default function GreenFieldsScene({
+  manifesto = false,
+  background = "greenFields",
+}: {
+  manifesto?: boolean;
+  background?: "greenFields" | "matrix";
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const characterAnchorRef = useRef<HTMLDivElement | null>(null);
   const reducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [-20, 20]);
   const grassY = useTransform(scrollYProgress, [0, 1], [10, -30]);
+  const isMatrix = background === "matrix";
+  const characterVariant = isMatrix ? "matrix" : "greenFields";
 
   const [auraOn, setAuraOn] = useState(false);
   const [distortOn, setDistortOn] = useState(false);
@@ -37,31 +45,41 @@ export default function GreenFieldsScene({ manifesto = false }: { manifesto?: bo
   const manifestoLines = cumgeonConfig.finalManifesto.lines;
 
   return (
-    <div ref={ref} className="relative h-full w-full bg-trench-800">
+    <div ref={ref} className={`relative h-full w-full ${isMatrix ? "bg-trench-950" : "bg-trench-800"}`}>
       <motion.div style={{ y }} className="absolute inset-0">
         <Image
-          src={cumgeonConfig.media.scenes.greenFields}
-          alt="Sunlit rolling green grasslands under a bright blue sky."
+          src={isMatrix ? cumgeonConfig.media.scenes.matrix : cumgeonConfig.media.scenes.greenFields}
+          alt={
+            isMatrix
+              ? "A dark green data corridor made of streaming code."
+              : "Sunlit rolling green grasslands under a bright blue sky."
+          }
           fill
           sizes="100vw"
-          className="object-cover opacity-70"
+          className={`object-cover ${isMatrix ? "opacity-60" : "opacity-70"}`}
         />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-t from-trench-950 via-trench-900/50 to-trench-900/20" />
+      <div
+        className={`absolute inset-0 bg-gradient-to-t ${
+          isMatrix ? "from-trench-950 via-trench-950/60 to-trench-950/30" : "from-trench-950 via-trench-900/50 to-trench-900/20"
+        }`}
+      />
 
-      {/* grass foreground silhouette */}
-      <motion.svg
-        style={{ y: grassY }}
-        aria-hidden="true"
-        viewBox="0 0 1200 120"
-        preserveAspectRatio="none"
-        className="absolute inset-x-0 bottom-0 h-28 w-full text-trench-950/90 sm:h-36"
-      >
-        <path
-          fill="currentColor"
-          d="M0,60 L20,90 L40,50 L60,100 L80,40 L100,95 L120,55 L140,110 L160,45 L180,90 L200,60 L220,100 L240,50 L260,95 L280,40 L300,90 L320,55 L340,110 L360,45 L380,95 L400,60 L420,100 L440,50 L460,95 L480,40 L500,90 L520,55 L540,110 L560,45 L580,95 L600,60 L620,100 L640,50 L660,95 L680,40 L700,90 L720,55 L740,110 L760,45 L780,95 L800,60 L820,100 L840,50 L860,95 L880,40 L900,90 L920,55 L940,110 L960,45 L980,95 L1000,60 L1020,100 L1040,50 L1060,95 L1080,40 L1100,90 L1120,55 L1140,110 L1160,45 L1180,95 L1200,60 L1200,120 L0,120 Z"
-        />
-      </motion.svg>
+      {/* grass foreground silhouette — only makes sense over the green fields photo */}
+      {!isMatrix && (
+        <motion.svg
+          style={{ y: grassY }}
+          aria-hidden="true"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          className="absolute inset-x-0 bottom-0 h-28 w-full text-trench-950/90 sm:h-36"
+        >
+          <path
+            fill="currentColor"
+            d="M0,60 L20,90 L40,50 L60,100 L80,40 L100,95 L120,55 L140,110 L160,45 L180,90 L200,60 L220,100 L240,50 L260,95 L280,40 L300,90 L320,55 L340,110 L360,45 L380,95 L400,60 L420,100 L440,50 L460,95 L480,40 L500,90 L520,55 L540,110 L560,45 L580,95 L600,60 L620,100 L640,50 L660,95 L680,40 L700,90 L720,55 L740,110 L760,45 L780,95 L800,60 L820,100 L840,50 L860,95 L880,40 L900,90 L920,55 L940,110 L960,45 L980,95 L1000,60 L1020,100 L1040,50 L1060,95 L1080,40 L1100,90 L1120,55 L1140,110 L1160,45 L1180,95 L1200,60 L1200,120 L0,120 Z"
+          />
+        </motion.svg>
+      )}
 
       {!manifesto && (
         <div
@@ -93,7 +111,7 @@ export default function GreenFieldsScene({ manifesto = false }: { manifesto?: bo
                 strokeLinecap="round"
               />
             </motion.svg>
-            <CharacterActor variant="greenFields" state="watching" size={200} showEye followPointerTilt />
+            <CharacterActor variant={characterVariant} state="watching" size={200} showEye followPointerTilt />
           </div>
         </div>
       )}
@@ -133,13 +151,13 @@ export default function GreenFieldsScene({ manifesto = false }: { manifesto?: bo
               transition={{ duration: 0.45, ease: [0.16, 1.6, 0.4, 1] }}
             >
               {i % 2 === 0 && slamIndex === i + 1 && (
-                <CharacterActor variant="greenFields" state="pushing" size={70} className="hidden sm:block" />
+                <CharacterActor variant={characterVariant} state="pushing" size={70} className="hidden sm:block" />
               )}
               <span className="font-display text-4xl uppercase tracking-tightest2 text-dirty drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] sm:text-6xl">
                 {line}
               </span>
               {i % 2 !== 0 && slamIndex === i + 1 && (
-                <CharacterActor variant="greenFields" state="pushing" flip size={70} className="hidden sm:block" />
+                <CharacterActor variant={characterVariant} state="pushing" flip size={70} className="hidden sm:block" />
               )}
             </motion.div>
           ))}
