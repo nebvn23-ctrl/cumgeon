@@ -399,7 +399,7 @@ export const cumgeonConfig = {
   // ------------------------------------------------------------------------
   links: {
     buy: "[BUY_LINK]",
-    contractAddress: "CPeZ14QfQ6ZTBwMWP8XYUiPUSKFdzpnNMKgjoMV1pump",
+    contractAddress: "4AKurehboHjeP4MDL5PEeFtHJRAVSXKKxkjy4Td2pump",
     x: "https://x.com/CUMGEON_SOL",
     telegram: "[TELEGRAM_LINK]",
     dexscreener: "[DEXSCREENER_LINK]",
