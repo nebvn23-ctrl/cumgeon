@@ -400,7 +400,7 @@ export const cumgeonConfig = {
   links: {
     buy: "[BUY_LINK]",
     contractAddress: "xxxxxxxxxxxxxxxxxxxxxxx",
-    x: "https://x.com/CUMGEON_SOL",
+    x: "https://x.com/CumgeonOnRH",
     telegram: "[TELEGRAM_LINK]",
     dexscreener: "[DEXSCREENER_LINK]",
   },
