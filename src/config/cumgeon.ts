@@ -49,7 +49,7 @@ export const cumgeonConfig = {
   // ------------------------------------------------------------------------
   identity: {
     name: "CUMGEON",
-    subtitle: "THE LAST BULL OF THE TRENCHES",
+    subtitle: "THE NEW META ON ROBINHOOD",
     tagline: "Bull body. Pigeon genetics. Trench mentality.",
     shortDescription:
       "Bull body. Pigeon genetics. Trench mentality. Meet Cumgeon—the meme that didn't enter the meta. It infected it.",
