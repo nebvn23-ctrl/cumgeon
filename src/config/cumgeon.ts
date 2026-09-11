@@ -172,7 +172,7 @@ export const cumgeonConfig = {
     {
       id: "last-bull",
       index: "01",
-      title: "THE LAST BULL OF THE TRENCHES",
+      title: "MASCOT OF ROBINHOOD",
       paragraphs: [
         "Cumgeon wasn't born in the trenches.",
         "The trenches were born inside Cumgeon.",
