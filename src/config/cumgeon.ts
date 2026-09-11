@@ -421,7 +421,7 @@ export const cumgeonConfig = {
   // it drives canonical URLs, Open Graph/Twitter image URLs and sitemap.xml.
   seo: {
     siteUrl: "https://cumgeon.example",
-    title: "CUMGEON — The Last Bull of the Trenches",
+    title: "CUMGEON — META SENDOR ON ROBINHOOD",
     description:
       "Bull body. Pigeon genetics. Trench mentality. Meet Cumgeon—the meme that didn't enter the meta. It infected it.",
     ogImage: "/media/cumgeon/scenes/cumgeon-trenches.jpg",
